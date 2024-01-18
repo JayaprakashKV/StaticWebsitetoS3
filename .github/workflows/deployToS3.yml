@@ -1,25 +1,16 @@
-name: DeployToAWSS3
- 
+name: Upload Website
+
 on:
   push:
     branches:
-      - main
+    - master
 
- 
 jobs:
   deploy:
-    name: Deploy
     runs-on: ubuntu-latest
     steps:
- 
-    # Download artifacts
-    - name: Download artifacts
-      uses: actions/download-artifact@master
-      with:
-        name: awsMadeEasySite
- 
-    - name: Deploy to S3 🚀
-      uses: jakejarvis/s3-sync-action@master
+    - uses: actions/checkout@master
+    - uses: jakejarvis/s3-sync-action@master
       with:
         args: --acl public-read --follow-symlinks --delete
       env:
